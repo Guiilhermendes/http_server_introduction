@@ -35,22 +35,20 @@ app.post('/clientes', (req, res) => {
 
 //localhost:3000/clientes (PUT)
 app.put('/clientes', (req, res) => {
-    for (cli of clientes) {
-        if (cli['id'] === req.body['id']) {
-            cli['nome'] = req.body['nome']
-            cli['email'] = req.body['email']
-        }
+    const cliente = {
+        id: req.body['id'],
+        nome: req.body['nome'],
+        email: req.body['email']
     }
+    let indice = clientes.map(x => x.id).indexOf(req.body['id'])
+    clientes.splice(indice, 1, cliente)
     res.status(201).json(clientes)
 })
 
 //localhost:3000/clientes (DELETE)
 app.delete('/clientes', (req, res) => {
-    for (let i = 0; i <= clientes.length; i++) {
-        if (clientes[i]['id'] === req.body['id']) {
-            clientes.splice(i, 1)
-        }
-    }
+    let indice = clientes.map(x => x.id).indexOf(req.body['id'])
+    clientes.splice(indice, 1)
     res.status(201).json(clientes)
 })
 
